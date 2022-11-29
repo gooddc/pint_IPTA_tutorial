@@ -1,0 +1,50 @@
+source: J1744-1134
+par-directory: /Users/dgood/Research/IPTA_DR3/pint_IPTA_tutorial/sample_pars/
+tim-directory: /Users/dgood/Research/IPTA_DR3/pint_IPTA_tutorial/sample_tims/
+timing-model: J1744-1134_PINT_20221012_prenoise.nb.par
+compare-model: 
+toas:
+- J1744-1134_PINT_20220302.nb.tim
+- J1744-1134.ppta.respace.tim
+
+free-params: [PX, ELONG, ELAT, PMELONG, PMELAT, F0, F1, JUMP1]
+free-dmx: Yes
+toa-type: NB
+fitter: DownhillGLSFitter
+n-iterations: 20
+ephem: DE440
+bipm: BIPM2019
+
+dmx:  # control dmx windowing/fixing
+  ignore-dmx: false
+  fratio: 1.1
+  max-sw-delay: 0.1 # finer binning when solar wind delay > threshold (us)
+  custom-dmx: [] # designated by [mjd_low,mjd_hi,binsize]
+outlier: # control outlier analysis runs
+  method: gibbs
+  n-burn: 1000
+  n-samples: 20000
+
+intermediate-results: # use results from previous runs
+  noise-dir: /nanograv/share/15yr/timing/intermediate/20220301.Noise.nb.ac12e98/
+  compare-noise-dir: /nanograv/share/15yr/timing/intermediate/20220222.Noise.nb.4e07003/
+  no-corner: true
+  
+ignore: # toa excision
+  mjd-start:
+  mjd-end:
+  snr-cut: 
+  bad-toa:
+  bad-toa-averaged:
+  bad-range:
+  bad-file:
+  prob-outlier: 0.1
+
+check:  # check before final
+  toa-outliers:
+  dmx-outliers:
+  unusual-params:
+  other:
+  cleared: true
+changelog:
+- '2022-11-28 Deborah Good: created sample'

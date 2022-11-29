@@ -1,0 +1,96 @@
+source: J1744-1134
+par-directory: ../IPTA_pars/
+tim-directory: ../IPTA_tims/J1744-1134/
+timing-model: J1744-1134_PINT_20221012_WNRNDMv.nb.par #J1744-1134.IPTADR2.TDB.modjump.par
+compare-model: J1744-1134_PINT_20221012_WNRNDMv.nb.par #DR2_pars/J1744-1134.noppta.par 
+toas:
+- J1744-1134_PINT_20220302.nb.reflag.nopn.tim
+- WSRT.P1.323.reflag.tim
+- WSRT.P1.367.reflag.tim
+- WSRT.P2.1380.reflag.tim
+- LEAP.1396.reflag          
+- JBO.DFB.1400.reflag.tim
+- JBO.DFB.1520.reflag.tim
+- JBO.ROACH.1520.reflag.tim 
+- EFF.EBPP.1360.reflag.tim
+- EFF.EBPP.2639.reflag.tim 
+- EFF.P217.1400.reflag.tim 
+- EFF.S60.4857.reflag.tim
+- NRT.NUPPI.1484.reflag.tim
+- NRT.NUPPI.2539.reflag.tim
+- NRT.BON.1400.reflag.tim
+- NRT.BON.1600.reflag.tim
+- NRT.BON.2000.reflag.tim
+- J1744-1134.ppta.respace.tim
+
+
+free-params: [PX, ELONG, ELAT, PMELONG, PMELAT, F0, F1, JUMP1, JUMP2, JUMP3, JUMP4, JUMP5, JUMP6, 
+             JUMP7, JUMP8, JUMP9, JUMP10, JUMP11, 
+             JUMP12, JUMP13, JUMP14, JUMP15, JUMP16, JUMP17, JUMP18, JUMP19, JUMP20, JUMP21, JUMP22,
+             JUMP23, JUMP24, JUMP25, JUMP26, JUMP27, JUMP28, JUMP29, JUMP30, JUMP31, JUMP32, JUMP33,
+             JUMP34, JUMP35, JUMP36, JUMP37, JUMP38, JUMP39, JUMP40, JUMP41, JUMP42, JUMP43]
+free-dmx: Yes
+toa-type: NB
+fitter: DownhillGLSFitter
+n-iterations: 20
+ephem: DE440
+bipm: BIPM2019
+
+dmx:  # control dmx windowing/fixing
+  ignore-dmx: false
+  fratio: 1.1
+  max-sw-delay: 0.1 # finer binning when solar wind delay > threshold (us)
+  custom-dmx: [] # designated by [mjd_low,mjd_hi,binsize]
+outlier: # control outlier analysis runs
+  method: gibbs
+  n-burn: 1000
+  n-samples: 20000
+
+intermediate-results: # use results from previous runs
+  noise-dir: /nanograv/share/15yr/timing/intermediate/20220301.Noise.nb.ac12e98/
+  compare-noise-dir: /nanograv/share/15yr/timing/intermediate/20220222.Noise.nb.4e07003/
+  #excised-tim: /nanograv/share/15yr/timing/intermediate/20220209.Outlier.nb.3460db7/J1744-1134.nb/J1744-1134.nb_excise.tim
+  no-corner: true
+ignore: # toa excision
+  mjd-start:
+  mjd-end:
+  snr-cut: 
+  bad-toa:
+  bad-toa-averaged:
+  - [c058575.align.pazr.30min, None, None]
+  - [c062007.align.pazr.30min, None, None]
+  - [J090412_071528.FT, None, None]
+  - [J090522_052201.FT, None, None]
+  - [CJ100115_113715.NEFTp, None, None]
+  bad-range:
+  bad-file:
+  - [t081025_075136.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t081115_064301.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090101_034120.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090125_012801.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090212_011120.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090222_005640.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090316_180710.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090407_213341.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090522_161457.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090608_124834.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090727_140321.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t090812_130236.rf.pcm.dzt8f32.dzTpf4, 0, None]
+  - [t090831_074852.rf.pcm.dzt8f32.dzTpf4, 1, None]
+  - [t090924_040417.rf.pcm.dzt8f32.dzTpf4, 1, None]
+  - [t091013_085956.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t091112_044656.rf.pcm.dzt8f32.dzTpf4, 3, None]
+  - [t100107_023520.rf.pcm.dzt8f32.dzTpf4, 1, None]
+  - [t100204_205934.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  - [t100221_195454.rf.pcm.dzt8f32.dzTpf4, 1, None]
+  - [t100408_150213.rf.pcm.dzt8f32.dzTpf4, 2, None]
+  prob-outlier: 0.1
+
+check:  # check before final
+  toa-outliers:
+  dmx-outliers:
+  unusual-params:
+  other:
+  cleared: true
+changelog:
+- '2022-10-11 removed a handful of large residual EPTA TOAs'
